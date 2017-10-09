@@ -1,6 +1,7 @@
 <?
 class View {
 	static function display($page, $data){
+		$hasWritePermission = True;
 		if(!file_exists('compiled-'.$page.'.tpl') && file_exists($page.'.tpl')) {
 			// need to compile template into php
 			$text = file_get_contents($page.'.tpl');
@@ -17,11 +18,14 @@ class View {
 				}
 				$output .=$exploded[$i];
 			}
-			
-			file_put_contents('compiled-'.$page.'.tpl', $output);
+			$hasWritePermission = file_put_contents('compiled-'.$page.'.tpl', $output);
 		}
-		?>
-		<?include 'compiled-'.$page.'.tpl';?>
-		<?
+		if($hasWritePermission) {
+			?>
+			<?include 'compiled-'.$page.'.tpl';?>
+			<?
+		}else{
+			eval('?>'.$output);
+		}
 	}
 }
