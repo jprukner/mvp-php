@@ -8,6 +8,9 @@ abstract class Presenter {
 	protected $model; // the data source
 
 	public function __construct(string $page, array $data) {
+		if(!$this->isPossibleToAccess()){
+			return;
+		}
 		$this->page = $page;
 		$this->data = $data;
 		$Model = $page.'Model';
@@ -25,4 +28,6 @@ abstract class Presenter {
 	}
 	// render is a default handler for the request. 
 	abstract protected function render();
+	// isPossibleToAccess defines rules for user accessing presenter and it's actions.
+	abstract protected function isPossibleToAccess(): bool;
 }

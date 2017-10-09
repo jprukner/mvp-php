@@ -1,5 +1,5 @@
 <?
-class HomePresenter extends Presenter {
+class HomePresenter extends PrivatePresenter {
 	public function render(){
 		View::display($this->page, [
 			'title'=>'verz nice',
