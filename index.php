@@ -9,4 +9,5 @@ if (isset($_GET['page'])){
 	$page = ucfirst($_GET['page']);
 }
 $Presenter = $page.'Presenter';
-new $Presenter($page);
+unset($_REQUEST['page']);
+new $Presenter($page, $_REQUEST);
