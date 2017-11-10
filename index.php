@@ -10,4 +10,5 @@ if (isset($_GET['page'])){
 }
 $Presenter = $page.'Presenter';
 unset($_REQUEST['page']);
+session_start();
 new $Presenter($page, $_REQUEST);
