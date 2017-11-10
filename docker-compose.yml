@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - "80:80"
+    volumes:
+     - ".:/var/www/html"
+    environment:
+     - DB_DATABASE=${DB_DATABASE}
+     - DB_USER=${DB_USER}
+     - DB_PASSWORD=${DB_PASSWORD}
+     - DB_HOST=mysql # name of the database service
+  mysql:
+    image: "mysql:latest"
+    volumes:
+     - "./sql:/docker-entrypoint-initdb.d" # initialize database structure
+    environment:
+     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+     - MYSQL_DATABASE=${DB_DATABASE}
+     - MYSQL_USER=${DB_USER}
+     - MYSQL_PASSWORD=${DB_PASSWORD}
